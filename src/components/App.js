@@ -1,13 +1,14 @@
 
-import './App.css';
 import React from 'react';
+import MemoControl from './MemoComtrol';
+import Header from './Header';
 
 
 function App() {
   return (
   <React.Fragment>
-  <h1>Header</h1>
-  <h2>Application</h2>
+  <Header/>
+  <MemoControl/>
   </React.Fragment>
   );
 }
