@@ -1,16 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function MemoDetail(props) {
+    const {memo} = props;
     return (
         <React.Fragment>
-        <h3>{props.name}</h3>
-        <h4>{props.memoText}</h4>
-        <h4><em>Seen on: {props.date}</em></h4>
-        <h4>{props.rate}</h4>
-        <h4>{props.emotion}</h4>
+        <h3>{memo.name}</h3>
+        <h4>{memo.memoText}</h4>
+        <h4><em>Seen on: {memo.date}</em></h4>
+        <h4>{memo.rate}</h4>
+        <h4>{memo.emotion}</h4>
         <button>Edit</button>  <button>Delete</button>
         </React.Fragment>
     )
+}
+
+MemoDetail.propTypes = {
+    memo: PropTypes.object
 }
 
 export default MemoDetail;

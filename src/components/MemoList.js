@@ -5,13 +5,16 @@ import Memo from "./Memo";
 function MemoList(props) {
     return (
         <React.Fragment>
-        {props.memoList.map((memo, index) => 
+        {props.memoList.map((memo) => 
             <Memo
+            whenMemoClicked = {props.onMemoSelection}
             name={memo.name}
             date={memo.date}
             rate={memo.rate}
             emotion={memo.emotion}
-            key={index}
+            id={memo.id}
+            key={memo.id}
+
             />
             
         )}
@@ -20,6 +23,7 @@ function MemoList(props) {
 }
 
 MemoList.propTypes = {
-    memoList: PropTypes.array
+    memoList: PropTypes.array,
+    onMemoSelection: PropTypes.func
 }
 export default MemoList;
