@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {v4} from 'uuid';
+import ReusableForm from "./ReusableForm";
 
 function NewMemoForm(props) {
 
    function handleNewMemoFormSubmission(event) {
         event.preventDefault();
+
         props.onAddingMemo({
             name: event.target.name.value,
             memoText: event.target.memoText.value,
@@ -18,41 +20,17 @@ function NewMemoForm(props) {
     }
     return (
 <React.Fragment>
-    <form onSubmit={handleNewMemoFormSubmission} >
-        <input
-        type="text"
-        name="name"
-        placeholder="Your name"
-        />
-         <input
-        type="text"
-        name="memoText"
-        placeholder="Your dream"
-        />
-         <input
-        type="text"
-        name="date"
-        placeholder="Date"
-        />
-         <input
-        type="text"
-        name="rate"
-        placeholder="Stars"
-        />
-         <input
-        type="text"
-        name="emotion"
-        placeholder="Your emotion"
-        />
-        <button type="submit">Add Memo</button>
-    </form>
+   <ReusableForm
+   handleFormSubmission={handleNewMemoFormSubmission}
+   btnText="Save Memo"
+   />
 </React.Fragment>
     );
 }
 
 NewMemoForm.propTypes = {
     onAddingMemo: PropTypes.func
-}
+};
  
 
 export default NewMemoForm;
