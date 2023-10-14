@@ -42,12 +42,20 @@ class MemoControl extends React.Component {
     });
  }
 
+ handleDeletingMemo = (id) => {
+    const newMainMemoList = this.state.mainMemoList.filter(memo => memo.id !== id);
+    this.setState({
+    mainMemoList: newMainMemoList,
+    selectedMemo: null
+    });
+ }
+
  render() {
     let currentlyVisible;
     let buttontext = null;
 
     if (this.state.selectedMemo !== null) {
-        currentlyVisible = <MemoDetail memo={this.state.selectedMemo}/>
+        currentlyVisible = <MemoDetail memo={this.state.selectedMemo} onDeleteClick={this.handleDeletingMemo}/>
         buttontext = "To Memos";
     }
 
