@@ -7,9 +7,9 @@ function MemoDetail(props) {
         <React.Fragment>
         <h3>{memo.name}</h3>
         <h4>{memo.memoText}</h4>
-        <h4><em>Seen on: {memo.date}</em></h4>
-        <h4>{memo.rate}</h4>
-        <h4>{memo.emotion}</h4>
+        <h4><em>Seen on: {memo.date.toString()}</em></h4>
+        <h2>{memo.rate}</h2>
+        <h1>{memo.emotion}</h1>
         <button onClick={props.onEditClick} >Edit</button>  <button onClick={() => props.onDeleteClick(memo.id)}>Delete</button>
         </React.Fragment>
     )

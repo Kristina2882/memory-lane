@@ -16,20 +16,26 @@ function ReusableForm(props) {
         placeholder="Your dream"
         />
          <input
-        type="text"
+        type="date"
         name="date"
         placeholder="Date"
         />
-         <input
-        type="text"
-        name="rate"
-        placeholder="Stars"
-        />
-         <input
-        type="text"
-        name="emotion"
-        placeholder="Your emotion"
-        />
+        <select name="rate">   
+            <option selected value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+            <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+            <option value="⭐⭐⭐">⭐⭐⭐</option>
+            <option value="⭐⭐">⭐⭐</option>
+            <option value="⭐">⭐</option>
+          </select>
+         
+          <select name="emotion">
+            <option selected value="😍">😍</option>
+            <option value="🤣">🤣</option>
+            <option value="😱">😱</option>
+            <option value="😭">😭</option>
+            <option value="😡">😡</option>
+          </select>
+       
         <button type="submit">{props.btnText}</button>
     </form>
 </React.Fragment>
