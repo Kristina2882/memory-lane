@@ -10,14 +10,15 @@ function MemoDetail(props) {
         <h4><em>Seen on: {memo.date}</em></h4>
         <h4>{memo.rate}</h4>
         <h4>{memo.emotion}</h4>
-        <button >Edit</button>  <button onClick={() => props.onDeleteClick(memo.id)}>Delete</button>
+        <button onClick={props.onEditClick} >Edit</button>  <button onClick={() => props.onDeleteClick(memo.id)}>Delete</button>
         </React.Fragment>
     )
 }
 
 MemoDetail.propTypes = {
     memo: PropTypes.object,
-    onDeleteClick: PropTypes.func
+    onDeleteClick: PropTypes.func,
+    onEditClick: PropTypes.func
 }
 
 export default MemoDetail;

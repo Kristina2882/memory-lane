@@ -2,6 +2,7 @@ import React from "react";
 import NewMemoForm from "./NewMemoForm";
 import MemoList from "./MemoList";
 import MemoDetail from "./MemoDetail";
+import EditMemoForm from "./EditMemoForm";
 
 class MemoControl extends React.Component {
  constructor(props) {
@@ -9,7 +10,8 @@ class MemoControl extends React.Component {
     this.state = {
         formVisible: false,
         mainMemoList: [],
-        selectedMemo: null
+        selectedMemo: null,
+        editing: false
     };
  }
 
@@ -17,7 +19,8 @@ class MemoControl extends React.Component {
     if (this.state.selectedMemo !== null) {
      this.setState({
      formVisible: false,
-     selectedMemo: null
+     selectedMemo: null,
+     editing: false
      });
     }
     else {
@@ -50,12 +53,32 @@ class MemoControl extends React.Component {
     });
  }
 
+ handleEditClick = () => {
+    this.setState({
+    editing: true
+    });
+ }
+
+ handleEditingMemoInList = (memoToEdit) => {
+  const newMainMemoList = this.state.mainMemoList.filter(memo => memo.id !== this.state.selectedMemo.id).concat(memoToEdit);
+  this.setState({
+    mainMemoList: newMainMemoList,
+    selectedMemo: null,
+    editing: false
+  });
+ }
+
  render() {
     let currentlyVisible;
     let buttontext = null;
 
-    if (this.state.selectedMemo !== null) {
-        currentlyVisible = <MemoDetail memo={this.state.selectedMemo} onDeleteClick={this.handleDeletingMemo}/>
+    if (this.state.editing) {
+        currentlyVisible = <EditMemoForm memo={this.state.selectedMemo} onEditMemo={this.handleEditingMemoInList}/>
+        buttontext="To Memos";
+    }
+
+    else if (this.state.selectedMemo !== null) {
+        currentlyVisible = <MemoDetail memo={this.state.selectedMemo} onDeleteClick={this.handleDeletingMemo} onEditClick= {this.handleEditClick}/>
         buttontext = "To Memos";
     }
 
