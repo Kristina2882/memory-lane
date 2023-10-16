@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import NewMemoForm from "./NewMemoForm";
 import MemoList from "./MemoList";
 import MemoDetail from "./MemoDetail";
 import EditMemoForm from "./EditMemoForm";
+import db from "./../firebase";
+import { collection, addDoc, onSnapshot } from "firebase/firestore";
 
 function MemoControl() {
 
@@ -10,6 +12,31 @@ const [formVisible, setFormVisible] = useState(false);
 const [mainMemoList, setMainMemoList] = useState([]);
 const [selectedMemo, setSelectedMemo] = useState(null);
 const [editing, setEditing] = useState(false);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+ const unSubscribe = onSnapshot(
+    collection(db, "memos"),
+    (collectionSnapshot) => {
+     const memos = [];
+     collectionSnapshot.forEach((memo) => {
+     memos.push({
+     name: memo.data().name,
+     memoText: memo.data().memoText,
+     date: memo.data().date,
+     rate: memo.data().rate,
+     emotion: memo.data().emotion,
+     id: memo.id
+     });
+     });
+     setMainMemoList(memos);
+    },
+    (error) => {
+     setError(error.message);
+    }
+ );
+ return () => unSubscribe();
+}, []);
 
  const handleClick = () => {
     if (selectedMemo !== null) {
@@ -22,9 +49,8 @@ const [editing, setEditing] = useState(false);
     }
 }
 
- const handleAddingNewMemo = (newMemo) => {
-    const newMainMemoList = mainMemoList.concat(newMemo);
-    setMainMemoList(newMainMemoList);
+ const handleAddingNewMemo = async (newMemo) => {
+    await addDoc(collection(db, "memos"), newMemo);
     setFormVisible(false);
  }
 
@@ -54,7 +80,11 @@ const handleEditClick = () => {
     let currentlyVisible;
     let buttontext = null;
 
-    if (editing) {
+    if(error) {
+        currentlyVisible =  <p>There was an error: {error}</p>
+    }
+
+    else if (editing) {
         currentlyVisible = <EditMemoForm memo={selectedMemo} onEditMemo={handleEditingMemoInList}/>
         buttontext="To Memos";
     }
@@ -75,7 +105,7 @@ const handleEditClick = () => {
     return (
    <React.Fragment>
    {currentlyVisible}
-   <button onClick={handleClick}>{buttontext}</button>
+  {error ? null : <button onClick={handleClick}>{buttontext}</button> }
    </React.Fragment>
 );
 

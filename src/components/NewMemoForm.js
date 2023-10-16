@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {v4} from 'uuid';
 import ReusableForm from "./ReusableForm";
 
 function NewMemoForm(props) {
@@ -13,8 +12,7 @@ function NewMemoForm(props) {
             memoText: event.target.memoText.value,
             date: event.target.date.value,
             rate: event.target.rate.value,
-            emotion: event.target.emotion.value,
-            id: v4()
+            emotion: event.target.emotion.value
         });
 
     }
