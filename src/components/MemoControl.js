@@ -1,102 +1,84 @@
-import React from "react";
+import React, {useState} from "react";
 import NewMemoForm from "./NewMemoForm";
 import MemoList from "./MemoList";
 import MemoDetail from "./MemoDetail";
 import EditMemoForm from "./EditMemoForm";
 
-class MemoControl extends React.Component {
- constructor(props) {
-    super(props);
-    this.state = {
-        formVisible: false,
-        mainMemoList: [],
-        selectedMemo: null,
-        editing: false
-    };
- }
+function MemoControl() {
 
- handleClick = () => {
-    if (this.state.selectedMemo !== null) {
-     this.setState({
-     formVisible: false,
-     selectedMemo: null,
-     editing: false
-     });
+const [formVisible, setFormVisible] = useState(false);
+const [mainMemoList, setMainMemoList] = useState([]);
+const [selectedMemo, setSelectedMemo] = useState(null);
+const [editing, setEditing] = useState(false);
+
+ const handleClick = () => {
+    if (selectedMemo !== null) {
+     setFormVisible(false);
+     setSelectedMemo(null);
+     setEditing(false);
     }
     else {
-    this.setState(prevState => ({
-        formVisible: !prevState.formVisible
-    }));
+    setFormVisible(!formVisible);
+    }
 }
+
+ const handleAddingNewMemo = (newMemo) => {
+    const newMainMemoList = mainMemoList.concat(newMemo);
+    setMainMemoList(newMainMemoList);
+    setFormVisible(false);
  }
 
- handleAddingNewMemo = (newMemo) => {
-    const newMainMemoList = this.state.mainMemoList.concat(newMemo);
-    this.setState({
-     mainMemoList:newMainMemoList,
-     formVisible: false
-    });
+ const handleChangeSelectedMemo = (id) => {
+    const newSelectedmemo = mainMemoList.filter(memo => memo.id === id)[0];
+    setSelectedMemo(newSelectedmemo);
  }
 
- handleChangeSelectedMemo = (id) => {
-    const newSelectedmemo = this.state.mainMemoList.filter(memo => memo.id === id)[0];
-    this.setState({
-        selectedMemo: newSelectedmemo
-    });
+ const handleDeletingMemo = (id) => {
+    const newMainMemoList = mainMemoList.filter(memo => memo.id !== id);
+    setMainMemoList(newMainMemoList);
+    setSelectedMemo(null);
  }
 
- handleDeletingMemo = (id) => {
-    const newMainMemoList = this.state.mainMemoList.filter(memo => memo.id !== id);
-    this.setState({
-    mainMemoList: newMainMemoList,
-    selectedMemo: null
-    });
+const handleEditClick = () => {
+    setEditing(true);
  }
 
- handleEditClick = () => {
-    this.setState({
-    editing: true
-    });
- }
+ const handleEditingMemoInList = (memoToEdit) => {
+  const newMainMemoList = mainMemoList.filter(memo => memo.id !== selectedMemo.id).concat(memoToEdit);
+  setMainMemoList(newMainMemoList);
+  setSelectedMemo(null);
+  setEditing(false);
+}
 
- handleEditingMemoInList = (memoToEdit) => {
-  const newMainMemoList = this.state.mainMemoList.filter(memo => memo.id !== this.state.selectedMemo.id).concat(memoToEdit);
-  this.setState({
-    mainMemoList: newMainMemoList,
-    selectedMemo: null,
-    editing: false
-  });
- }
-
- render() {
+ 
     let currentlyVisible;
     let buttontext = null;
 
-    if (this.state.editing) {
-        currentlyVisible = <EditMemoForm memo={this.state.selectedMemo} onEditMemo={this.handleEditingMemoInList}/>
+    if (editing) {
+        currentlyVisible = <EditMemoForm memo={selectedMemo} onEditMemo={handleEditingMemoInList}/>
         buttontext="To Memos";
     }
 
-    else if (this.state.selectedMemo !== null) {
-        currentlyVisible = <MemoDetail memo={this.state.selectedMemo} onDeleteClick={this.handleDeletingMemo} onEditClick= {this.handleEditClick}/>
+    else if (selectedMemo !== null) {
+        currentlyVisible = <MemoDetail memo={selectedMemo} onDeleteClick={handleDeletingMemo} onEditClick= {handleEditClick}/>
         buttontext = "To Memos";
     }
 
-    else if (this.state.formVisible) {
-        currentlyVisible = <NewMemoForm onAddingMemo={this.handleAddingNewMemo}/>;
+    else if (formVisible) {
+        currentlyVisible = <NewMemoForm onAddingMemo={handleAddingNewMemo}/>;
         buttontext = "To Memos";
     }
     else {
-    currentlyVisible = <MemoList memoList={this.state.mainMemoList} onMemoSelection = {this.handleChangeSelectedMemo}/>;
+    currentlyVisible = <MemoList memoList={mainMemoList} onMemoSelection = {handleChangeSelectedMemo}/>;
     buttontext = "Add Memo";
     }
     return (
    <React.Fragment>
    {currentlyVisible}
-   <button onClick={this.handleClick}>{buttontext}</button>
+   <button onClick={handleClick}>{buttontext}</button>
    </React.Fragment>
 );
+
  }
-}
 
 export default MemoControl;
