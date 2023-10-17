@@ -4,7 +4,7 @@ import MemoList from "./MemoList";
 import MemoDetail from "./MemoDetail";
 import EditMemoForm from "./EditMemoForm";
 import db from "./../firebase";
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 function MemoControl() {
 
@@ -59,9 +59,8 @@ useEffect(() => {
     setSelectedMemo(newSelectedmemo);
  }
 
- const handleDeletingMemo = (id) => {
-    const newMainMemoList = mainMemoList.filter(memo => memo.id !== id);
-    setMainMemoList(newMainMemoList);
+ const handleDeletingMemo = async (id) => {
+   await deleteDoc(doc(db, "memos", id));
     setSelectedMemo(null);
  }
 
@@ -69,9 +68,9 @@ const handleEditClick = () => {
     setEditing(true);
  }
 
- const handleEditingMemoInList = (memoToEdit) => {
-  const newMainMemoList = mainMemoList.filter(memo => memo.id !== selectedMemo.id).concat(memoToEdit);
-  setMainMemoList(newMainMemoList);
+ const handleEditingMemoInList = async (memoToEdit) => {
+   const memoRef = doc(db, "memos", memoToEdit.id);
+   await updateDoc(memoRef, memoToEdit);
   setSelectedMemo(null);
   setEditing(false);
 }
