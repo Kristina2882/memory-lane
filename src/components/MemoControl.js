@@ -3,7 +3,7 @@ import NewMemoForm from "./NewMemoForm";
 import MemoList from "./MemoList";
 import MemoDetail from "./MemoDetail";
 import EditMemoForm from "./EditMemoForm";
-import {db}  from "./../firebase";
+import {db, auth}  from "./../firebase";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 function MemoControl() {
@@ -75,6 +75,14 @@ const handleEditClick = () => {
   setEditing(false);
 }
 
+if (auth.currentUser === null) {
+    return (
+        <React.Fragment>
+            <h2>Please sign in to view your memos🖤</h2>
+        </React.Fragment>
+    );
+}
+else if (auth.currentUser !== null) {
  
     let currentlyVisible;
     let buttontext = null;
@@ -108,6 +116,6 @@ const handleEditClick = () => {
    </React.Fragment>
 );
 
- }
+ }}
 
 export default MemoControl;

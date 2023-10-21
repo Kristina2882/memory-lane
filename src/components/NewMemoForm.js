@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import ReusableForm from "./ReusableForm";
+import {auth} from './../firebase';
+
 
 function NewMemoForm(props) {
 
@@ -8,7 +10,7 @@ function NewMemoForm(props) {
         event.preventDefault();
 
         props.onAddingMemo({
-            name: event.target.name.value,
+            name: auth.currentUser.email,
             memoText: event.target.memoText.value,
             date: event.target.date.value,
             rate: event.target.rate.value,

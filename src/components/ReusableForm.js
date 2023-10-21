@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {auth} from './../firebase';
 
 function ReusableForm(props) {
     return (
@@ -8,7 +9,7 @@ function ReusableForm(props) {
         <input
         type="text"
         name="name"
-        placeholder="Your name"
+        value={auth.currentUser.email} readOnly
         />
          <input
         type="text"
