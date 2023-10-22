@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import { auth } from "./../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
+import { Link } from "react-router-dom";
 
 function SignIn() {
 
     const [signUpSuccess, setSignUpSuccess] = useState(null);
     const [signInSuccess, setSignInSuccess] = useState(null);
-    const [signOutSuccess, setSignOutSuccess] = useState(null);
 
     function doSignUp(event) {
         event.preventDefault();
@@ -42,16 +42,6 @@ function SignIn() {
         });
 
     }
-
-    function doSignOut() {
-      signOut(auth)
-      .then(function() {
-       setSignOutSuccess(`You have successfully signed out!`)
-      })
-      .catch(function(error) {
-      setSignOutSuccess(`There was an error signing out: ${error.message}!`)
-      });
-    }
     return (
         <React.Fragment>
              <h2>Sign Up</h2>
@@ -85,9 +75,8 @@ function SignIn() {
                 placeholder="Your password"/>
                 <button type="submit">Sign In!</button>
             </form>
-            <h2>Sign Out</h2>
-            {signOutSuccess}
-            <button onClick={doSignOut}>Sign Out!</button>
+
+            <Link to ='/'><h2>Home</h2></Link>
 
         </React.Fragment>
     );

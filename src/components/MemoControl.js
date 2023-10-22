@@ -5,6 +5,7 @@ import MemoDetail from "./MemoDetail";
 import EditMemoForm from "./EditMemoForm";
 import {db, auth}  from "./../firebase";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 function MemoControl() {
 
@@ -78,6 +79,7 @@ const handleEditClick = () => {
 if (auth.currentUser === null) {
     return (
         <React.Fragment>
+            <Link to = '/sign-in'><h2>Sign In</h2></Link>
             <h2>Please sign in to view your memos🖤</h2>
         </React.Fragment>
     );
@@ -111,6 +113,7 @@ else if (auth.currentUser !== null) {
     }
     return (
    <React.Fragment>
+    <Link to = '/sign-out'><h2>Sign Out</h2></Link>
    {currentlyVisible}
   {error ? null : <button onClick={handleClick}>{buttontext}</button> }
    </React.Fragment>

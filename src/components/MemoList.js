@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Memo from "./Memo";
-import {db, auth} from './../firebase';
+import {auth} from './../firebase';
 
 function MemoList(props) {
 

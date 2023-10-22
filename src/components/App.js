@@ -4,6 +4,7 @@ import MemoControl from './MemoControl';
 import Header from './Header';
 import SignIn from './SignIn';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignOut from './SingOut';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
      <Routes>
       <Route path='/sign-in' element={<SignIn/>}/>
       <Route path='/' element={<MemoControl/>}/>
+      <Route path='/sign-out' element={<SignOut />} />
      </Routes>
   </Router>
   );
