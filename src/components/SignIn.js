@@ -12,6 +12,9 @@ function SignIn() {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const passwordConfirmed = event.target.confirmPassword.value;
+
+        if (password === passwordConfirmed) {
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -21,6 +24,10 @@ function SignIn() {
             setSignUpSuccess(`There was an error signing up: ${error.message}!`)
         });
     }
+    else {
+        setSignUpSuccess(`Passwords don't match!`)
+    }
+}
 
     function doSignIn(event) {
         event.preventDefault();

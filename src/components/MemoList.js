@@ -1,11 +1,16 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import Memo from "./Memo";
+import {db, auth} from './../firebase';
 
 function MemoList(props) {
+
+    const user = auth.currentUser.email;
+    const memoListForUser = props.memoList.filter(memo => memo.name === user);
+
     return (
         <React.Fragment>
-        {props.memoList.map((memo) => 
+        {memoListForUser.map((memo) => 
             <Memo
             whenMemoClicked = {props.onMemoSelection}
             name={memo.name}
