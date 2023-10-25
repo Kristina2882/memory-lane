@@ -15,6 +15,7 @@ function MemoList(props) {
             whenMemoClicked = {props.onMemoSelection}
             name={memo.name}
             date={memo.date}
+            formattedWaitTime={memo.formattedWaitTime}
             rate={memo.rate}
             emotion={memo.emotion}
             id={memo.id}

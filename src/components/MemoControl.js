@@ -4,8 +4,9 @@ import MemoList from "./MemoList";
 import MemoDetail from "./MemoDetail";
 import EditMemoForm from "./EditMemoForm";
 import {db, auth}  from "./../firebase";
-import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
 
 function MemoControl() {
 
@@ -16,17 +17,27 @@ const [editing, setEditing] = useState(false);
 const [error, setError] = useState(null);
 
 useEffect(() => {
- const unSubscribe = onSnapshot(
+
+const queryOrderedByTimeCreated = query(
     collection(db, "memos"),
+    orderBy('timeCreated','desc')
+);
+
+ const unSubscribe = onSnapshot(
+    queryOrderedByTimeCreated,
     (collectionSnapshot) => {
      const memos = [];
      collectionSnapshot.forEach((memo) => {
+        const timeCreated = memo.get('timeCreated', {serverTimestamps: 'estimate'}).toDate();
+        const jsDate = new Date(timeCreated);
      memos.push({
      name: memo.data().name,
      memoText: memo.data().memoText,
      date: memo.data().date,
      rate: memo.data().rate,
      emotion: memo.data().emotion,
+     timeCreated: jsDate,
+     formattedWaitTime: formatDistanceToNow(jsDate),
      id: memo.id
      });
      });
@@ -37,7 +48,26 @@ useEffect(() => {
     }
  );
  return () => unSubscribe();
-}, []);
+}, [])
+
+useEffect(() => {
+    function updateMemoElapseWaitTime() {
+        const newMainMemoList = mainMemoList.map((memo) => {
+            const newFotmattedWaitTime = formatDistanceToNow(memo.timeCreated);
+            return {...memo, formattedWaitTime: newFotmattedWaitTime};
+        });
+        setMainMemoList(newMainMemoList);
+    }
+
+    const waitTimeUpdateTimer = setInterval(() =>
+    updateMemoElapseWaitTime(), 
+    60000 
+    );
+
+    return function cleanUp() {
+        clearInterval(waitTimeUpdateTimer);
+    }
+}, [mainMemoList])
 
  const handleClick = () => {
     if (selectedMemo !== null) {
