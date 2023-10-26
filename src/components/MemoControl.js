@@ -106,18 +106,18 @@ const handleEditClick = () => {
   setEditing(false);
 }
 
+let signInOutLink;
+let currentlyVisible;
+let buttontext = null;
+
 if (auth.currentUser === null) {
-    return (
-        <React.Fragment>
-            <Link to = '/sign-in'><h2>Sign In</h2></Link>
-            <h2>Please sign in to view your memos🖤</h2>
-        </React.Fragment>
-    );
+    signInOutLink = <Link to = '/sign-in'><h2>Sign In</h2></Link> 
+    currentlyVisible = <h2>Please sign in to view your memos🖤</h2>
+    buttontext = "Add Memo";
+
 }
 else if (auth.currentUser !== null) {
- 
-    let currentlyVisible;
-    let buttontext = null;
+    signInOutLink = <Link to = '/sign-out'><h2>Sign Out</h2></Link> 
 
     if(error) {
         currentlyVisible =  <p>There was an error: {error}</p>
@@ -141,14 +141,15 @@ else if (auth.currentUser !== null) {
     currentlyVisible = <MemoList memoList={mainMemoList} onMemoSelection = {handleChangeSelectedMemo}/>;
     buttontext = "Add Memo";
     }
-    return (
-   <React.Fragment>
-    <Link to = '/sign-out'><h2>Sign Out</h2></Link>
-   {currentlyVisible}
-  {error ? null : <button onClick={handleClick}>{buttontext}</button> }
-   </React.Fragment>
-);
 
- }}
+ }
+ return (
+    <React.Fragment>
+    {signInOutLink}
+    {currentlyVisible}
+   {error ? null : <button onClick={handleClick}>{buttontext}</button> }
+    </React.Fragment>
+ );
+}
 
 export default MemoControl;
