@@ -5,8 +5,11 @@ import MemoDetail from "./MemoDetail";
 import EditMemoForm from "./EditMemoForm";
 import {db, auth}  from "./../firebase";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "firebase/firestore";
-import { Link } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
+import { Container, Navbar } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
+import moonImg from './../img/moon.png';
+import { Button } from "react-bootstrap";
 
 function MemoControl() {
 
@@ -111,13 +114,13 @@ let currentlyVisible;
 let buttontext = null;
 
 if (auth.currentUser === null) {
-    signInOutLink = <Link to = '/sign-in'><h2>Sign In</h2></Link> 
+    signInOutLink = <Nav.Link href = '/sign-in'><h2>Sign In</h2></Nav.Link> 
     currentlyVisible = <h2>Please sign in to view your memos🖤</h2>
     buttontext = "Add Memo";
 
 }
 else if (auth.currentUser !== null) {
-    signInOutLink = <Link to = '/sign-out'><h2>Sign Out</h2></Link> 
+    signInOutLink = <Nav.Link href = '/sign-out'><h2>Sign Out</h2></Nav.Link> 
 
     if(error) {
         currentlyVisible =  <p>There was an error: {error}</p>
@@ -145,9 +148,18 @@ else if (auth.currentUser !== null) {
  }
  return (
     <React.Fragment>
-    {signInOutLink}
+     <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+            <Nav>
+    <Navbar.Brand><img src={moonImg} alt='moon'/></Navbar.Brand>
+     <Nav.Link href="/"><h2>Memory Lane</h2></Nav.Link>           
+   {signInOutLink}
+   {error ? null : <Button variant="outline-secondary" onClick={handleClick}><h3>{buttontext}</h3></Button> }
+   <Navbar.Text><h4><em>...Follow your dreams!</em></h4></Navbar.Text>
+   </Nav>
+   </Container>
+   </Navbar>
     {currentlyVisible}
-   {error ? null : <button onClick={handleClick}>{buttontext}</button> }
     </React.Fragment>
  );
 }
