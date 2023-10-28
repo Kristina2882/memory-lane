@@ -1,44 +1,61 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {auth} from './../firebase';
+import { Form, Button, Row } from "react-bootstrap";
 
 function ReusableForm(props) {
     return (
 <React.Fragment>
-<form onSubmit={props.handleFormSubmission} >
-        <input
+<Form onSubmit={props.handleFormSubmission} className="mt-3" >
+<Row>
+<Form.Group className="mb-3">
+        <Form.Control 
         type="text"
         name="name"
         value={auth.currentUser.email} readOnly
         />
-         <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+        <Form.Control 
+        type="text"
+        name="title"
+        placeholder="What was it?"
+        />
+        </Form.Group>
+        <Form.Group className="mb-3">
+        <Form.Control 
         type="text"
         name="memoText"
         placeholder="Your dream"
         />
-         <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+        <Form.Control 
         type="date"
         name="date"
         placeholder="Date"
         />
-        <select name="rate">   
+        </Form.Group>
+        <Form.Select size="lg" className="mb-3" name="rate">   
             <option selected value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
             <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
             <option value="⭐⭐⭐">⭐⭐⭐</option>
             <option value="⭐⭐">⭐⭐</option>
             <option value="⭐">⭐</option>
-          </select>
+          </Form.Select>
          
-          <select name="emotion">
+          <Form.Select size="lg" className="mb-3" name="emotion">
             <option selected value="😍">😍</option>
             <option value="🤣">🤣</option>
             <option value="😱">😱</option>
             <option value="😭">😭</option>
             <option value="😡">😡</option>
-          </select>
-       
-        <button type="submit">{props.btnText}</button>
-    </form>
+            </Form.Select>
+       <Form.Group className="mb-3">
+        <Button type="submit" >{props.btnText}</Button>
+        </Form.Group>
+        </Row>
+    </Form>
 </React.Fragment>
     );
 }

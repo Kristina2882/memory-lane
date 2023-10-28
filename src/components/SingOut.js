@@ -30,8 +30,8 @@ return (
    </Nav>
    </Container>
    </Navbar>
-{signOutSuccess}
-<br/>
+   <h2 className="mt-3">Sign Out</h2>
+  <h4>{signOutSuccess}</h4> 
 <button onClick={doSignOut}>Sign Out!</button>
 </React.Fragment>);
 }

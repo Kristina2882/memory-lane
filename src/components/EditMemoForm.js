@@ -9,6 +9,7 @@ function EditMemoForm(props) {
         event.preventDefault();
         props.onEditMemo({
             name: event.target.name.value,
+            title: event.target.title.value,
             memoText: event.target.memoText.value,
             date: event.target.date.value,
             rate: event.target.rate.value,

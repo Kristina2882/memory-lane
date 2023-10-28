@@ -12,6 +12,7 @@ function NewMemoForm(props) {
 
         props.onAddingMemo({
             name: auth.currentUser.email,
+            title: event.target.title.value,
             memoText: event.target.memoText.value,
             date: event.target.date.value,
             rate: event.target.rate.value,

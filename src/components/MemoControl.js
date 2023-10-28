@@ -35,6 +35,7 @@ const queryOrderedByTimeCreated = query(
         const jsDate = new Date(timeCreated);
      memos.push({
      name: memo.data().name,
+     title: memo.data().title,
      memoText: memo.data().memoText,
      date: memo.data().date,
      rate: memo.data().rate,

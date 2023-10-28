@@ -56,7 +56,7 @@ function SignIn() {
    </Nav>
    </Container>
    </Navbar>
-             <h2>Sign Up</h2>
+             <h2  className="mt-3">Sign Up</h2>
             {signUpSuccess}
             <form onSubmit={doSignUp}>
                 <input
@@ -74,7 +74,7 @@ function SignIn() {
                 <button type="submit">Sign Up!</button>
             </form>
 
-            <h2>Sign In</h2>
+            <h2 className="mt-3">Sign In</h2>
             {signInSuccess}
             <form onSubmit={doSignIn}>
                 <input
