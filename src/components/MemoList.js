@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Memo from "./Memo";
 import {auth} from './../firebase';
+import { Container } from "react-bootstrap";
 
 function MemoList(props) {
 
@@ -10,6 +11,7 @@ function MemoList(props) {
 
     return (
         <React.Fragment>
+         <Container className="mt-3">
         {memoListForUser.map((memo) => 
             <Memo
             whenMemoClicked = {props.onMemoSelection}
@@ -24,6 +26,7 @@ function MemoList(props) {
             />
             
         )}
+        </Container>   
          </React.Fragment>
     )
 }

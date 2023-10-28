@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import { auth } from "./../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Nav, Navbar, Container } from "react-bootstrap";
+import moonImg from './../img/moon.png';
 
 function SignIn() {
 
@@ -44,6 +45,17 @@ function SignIn() {
     }
     return (
         <React.Fragment>
+        <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+            <Nav>
+    <Navbar.Brand><img src={moonImg} alt='moon'/></Navbar.Brand>
+     <Nav.Link href="/"><h2>Memory Lane</h2></Nav.Link>           
+   </Nav>
+   <Nav className="justify-content-end">
+   <Navbar.Text><h4><em>  ...Follow your dreams!</em></h4></Navbar.Text>
+   </Nav>
+   </Container>
+   </Navbar>
              <h2>Sign Up</h2>
             {signUpSuccess}
             <form onSubmit={doSignUp}>
@@ -75,8 +87,6 @@ function SignIn() {
                 placeholder="Your password"/>
                 <button type="submit">Sign In!</button>
             </form>
-
-            <Link to ='/'><h2>Home</h2></Link>
 
         </React.Fragment>
     );

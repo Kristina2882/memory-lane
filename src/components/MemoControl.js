@@ -115,8 +115,8 @@ let buttontext = null;
 
 if (auth.currentUser === null) {
     signInOutLink = <Nav.Link href = '/sign-in'><h2>Sign In</h2></Nav.Link> 
-    currentlyVisible = <h2>Please sign in to view your memos🖤</h2>
-    buttontext = "Add Memo";
+    currentlyVisible = <h2 className="mt-3">Please sign in to view your memos🖤</h2>
+    buttontext = "+ Add";
 
 }
 else if (auth.currentUser !== null) {
@@ -142,7 +142,7 @@ else if (auth.currentUser !== null) {
     }
     else {
     currentlyVisible = <MemoList memoList={mainMemoList} onMemoSelection = {handleChangeSelectedMemo}/>;
-    buttontext = "Add Memo";
+    buttontext = "+ Add";
     }
 
  }
@@ -154,8 +154,10 @@ else if (auth.currentUser !== null) {
     <Navbar.Brand><img src={moonImg} alt='moon'/></Navbar.Brand>
      <Nav.Link href="/"><h2>Memory Lane</h2></Nav.Link>           
    {signInOutLink}
-   {error ? null : <Button variant="outline-secondary" onClick={handleClick}><h3>{buttontext}</h3></Button> }
-   <Navbar.Text><h4><em>...Follow your dreams!</em></h4></Navbar.Text>
+   </Nav>
+   <Nav className="justify-content-end">
+   {error ? null : <Button variant="outline-secondary" size="sm"  onClick={handleClick}><h4><strong>{buttontext}</strong></h4></Button> }
+   <Navbar.Text><h4><em>  ...Follow your dreams!</em></h4></Navbar.Text>
    </Nav>
    </Container>
    </Navbar>

@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import {auth} from './../firebase';
 import { signOut } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Nav, Navbar, Container } from "react-bootstrap";
+import moonImg from './../img/moon.png';
 
 function SignOut() {
     const [signOutSuccess, setSignOutSuccess] = useState(null);
@@ -18,10 +19,20 @@ function SignOut() {
 
 return (
 <React.Fragment>
+<Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+            <Nav>
+    <Navbar.Brand><img src={moonImg} alt='moon'/></Navbar.Brand>
+     <Nav.Link href="/"><h2>Memory Lane</h2></Nav.Link>           
+   </Nav>
+   <Nav className="justify-content-end">
+   <Navbar.Text><h4><em>  ...Follow your dreams!</em></h4></Navbar.Text>
+   </Nav>
+   </Container>
+   </Navbar>
 {signOutSuccess}
 <br/>
 <button onClick={doSignOut}>Sign Out!</button>
-<Link to ='/'><h2>Home</h2></Link>
 </React.Fragment>);
 }
 
