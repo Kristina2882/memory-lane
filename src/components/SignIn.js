@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { auth } from "./../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Form, Row, Col, Button } from "react-bootstrap";
 import moonImg from './../img/moon.png';
 
 function SignIn() {
@@ -22,7 +22,7 @@ function SignIn() {
          setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`)
         })
         .catch((error) => {
-            setSignUpSuccess(`There was an error signing up: ${error.message}!`)
+            setSignUpSuccess(`There was an error signing up: ${error.message}`)
         });
     }
     else {
@@ -39,7 +39,7 @@ function SignIn() {
             setSignInSuccess(`You've successfully signed in, ${userCredential.user.email}!`)
         })
         .catch((error) => {
-         setSignInSuccess(`There was an error signing in: ${error.message}!`)
+         setSignInSuccess(`There was an error signing in: ${error.message}`)
         });
 
     }
@@ -56,37 +56,61 @@ function SignIn() {
    </Nav>
    </Container>
    </Navbar>
-             <h2  className="mt-3">Sign Up</h2>
-            {signUpSuccess}
-            <form onSubmit={doSignUp}>
-                <input
+           <h2  className="mt-3">Sign Up</h2>
+           <h5><em>{signUpSuccess}</em></h5>
+            <Form onSubmit={doSignUp}>
+                <Row>
+                    <Col>
+                    <Form.Group className="mb-3">
+                <Form.Control 
                 name="email"
                 type="text"
                 placeholder="Your email"/>
-                <input
+                </Form.Group>
+                </Col>
+                <Col>
+                <Form.Group className="mb-3">
+                <Form.Control 
                 name="password"
                 type="password"
                 placeholder="Your password"/>
-                <input
+                </Form.Group>
+                </Col>
+                <Col>
+                <Form.Group className="mb-3">
+                <Form.Control 
                 name="confirmPassword"
                 type="password"
                 placeholder="Confirm your password"/>
-                <button type="submit">Sign Up!</button>
-            </form>
+                </Form.Group>
+                </Col>
+                </Row>
+                <Button type="submit" variant="outline-dark">Sign Up!</Button>
+            </Form>
 
             <h2 className="mt-3">Sign In</h2>
-            {signInSuccess}
-            <form onSubmit={doSignIn}>
-                <input
+            <h5><em>{signInSuccess}</em></h5>
+            <Form onSubmit={doSignIn}>
+                <Row>
+                    <Col sm={4}>
+                    <Form.Group className="mb-3">
+                 <Form.Control 
                 name="signInEmail"
                 type="text"
                 placeholder="Your email"/>
-                <input
+                </Form.Group>
+                </Col>
+                <Col sm={4}>
+                <Form.Group className="mb-3">
+                <Form.Control 
                 name="signInPassword"
                 type="password"
                 placeholder="Your password"/>
-                <button type="submit">Sign In!</button>
-            </form>
+                </Form.Group>
+                </Col>
+                </Row>
+                <Button type="submit" variant="outline-dark">Sign In!</Button>
+            </Form>
 
         </React.Fragment>
     );

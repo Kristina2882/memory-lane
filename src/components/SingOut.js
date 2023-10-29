@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {auth} from './../firebase';
 import { signOut } from "firebase/auth";
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import moonImg from './../img/moon.png';
 
 function SignOut() {
@@ -31,8 +31,8 @@ return (
    </Container>
    </Navbar>
    <h2 className="mt-3">Sign Out</h2>
-  <h4>{signOutSuccess}</h4> 
-<button onClick={doSignOut}>Sign Out!</button>
+  <h5 className="mb-3"><em>{signOutSuccess}</em></h5> 
+<Button onClick={doSignOut} variant="outline-dark">Sign Out!</Button>
 </React.Fragment>);
 }
 
