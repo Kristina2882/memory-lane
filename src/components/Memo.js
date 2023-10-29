@@ -11,7 +11,7 @@ function Memo(props) {
             <Col sm={9}>
         <h3>{props.title}</h3>
         <h4><em>Added {props.formattedWaitTime} ago</em></h4>
-        <h4><em>Seen on: {props.date.toString()}</em></h4>
+        <h4><em>Seen on: {props.date}</em></h4>
         </Col>
         <Col sm={3}>
         <h2>{props.rate}</h2>
@@ -27,7 +27,7 @@ function Memo(props) {
 Memo.propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
-    date: PropTypes.object,
+    date: PropTypes.string,
     rate: PropTypes.string,
     emotion: PropTypes.string,
     whenMemoClicked: PropTypes.func,
