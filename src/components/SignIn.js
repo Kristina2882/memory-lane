@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { auth } from "./../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import { Nav, Navbar, Container, Form, Row, Col, Button } from "react-bootstrap";
-import moonImg from './../img/moon.png';
+import { Form, Row, Col, Button, Stack } from "react-bootstrap";
+import PropTypes from 'prop-types';
 
-function SignIn() {
+
+function SignIn(props) {
 
     const [signUpSuccess, setSignUpSuccess] = useState(null);
     const [signInSuccess, setSignInSuccess] = useState(null);
@@ -19,7 +20,8 @@ function SignIn() {
 
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-         setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`)
+         setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`);
+         props.signInDone();
         })
         .catch((error) => {
             setSignUpSuccess(`There was an error signing up: ${error.message}`)
@@ -36,7 +38,8 @@ function SignIn() {
         const password = event.target.signInPassword.value;
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            setSignInSuccess(`You've successfully signed in, ${userCredential.user.email}!`)
+            setSignInSuccess(`You've successfully signed in, ${userCredential.user.email}!`);
+            props.signInDone();
         })
         .catch((error) => {
          setSignInSuccess(`There was an error signing in: ${error.message}`)
@@ -45,17 +48,7 @@ function SignIn() {
     }
     return (
         <React.Fragment>
-        <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-            <Nav>
-    <Navbar.Brand><img src={moonImg} alt='moon'/></Navbar.Brand>
-     <Nav.Link href="/"><h2>Memory Lane</h2></Nav.Link>           
-   </Nav>
-   <Nav className="justify-content-end">
-   <Navbar.Text><h4><em>  ...Follow your dreams!</em></h4></Navbar.Text>
-   </Nav>
-   </Container>
-   </Navbar>
+        
            <h2  className="mt-3">Sign Up</h2>
            <h5><em>{signUpSuccess}</em></h5>
             <Form onSubmit={doSignUp}>
@@ -114,6 +107,10 @@ function SignIn() {
 
         </React.Fragment>
     );
+}
+
+SignIn.propTypes = {
+    signInDone: PropTypes.func
 }
 
 export default SignIn;

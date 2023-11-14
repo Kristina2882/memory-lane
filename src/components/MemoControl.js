@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import NewMemoForm from "./NewMemoForm";
 import MemoList from "./MemoList";
 import MemoDetail from "./MemoDetail";
@@ -6,10 +6,13 @@ import EditMemoForm from "./EditMemoForm";
 import {db, auth}  from "./../firebase";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "firebase/firestore";
 import { formatDistanceToNow } from "date-fns";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, Navbar, Stack, useAccordionButton } from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import moonImg from './../img/moon.png';
 import { Button } from "react-bootstrap";
+import { ThemeContext } from "../context/theme-context";
+import SignIn from "./SignIn";
+import SignOut from "./SignOut";
 
 function MemoControl() {
 
@@ -18,6 +21,8 @@ const [mainMemoList, setMainMemoList] = useState([]);
 const [selectedMemo, setSelectedMemo] = useState(null);
 const [editing, setEditing] = useState(false);
 const [error, setError] = useState(null);
+const [signInVisible, setSignInVisible] = useState(false);
+const [signOutVisible, setSignOutVisible] = useState(false);
 
 useEffect(() => {
 
@@ -110,20 +115,48 @@ const handleEditClick = () => {
   setEditing(false);
 }
 
-let signInOutLink;
+const handleSignInClick = () => {
+    setSignInVisible(true);
+    }
+const handleSignIn = () => {
+    setSignInVisible(false);
+    setListVisible(false);
+}
+
+const handleSignOutClick = () => {
+    setSignOutVisible(true);
+}
+
+const handleSignOut = () => {
+    setSignOutVisible(false);
+}
+
+const theme = useContext(ThemeContext);
+const buttonStyles = { 
+    backgroundColor: theme.buttonBackground, 
+    color: theme.textColor, 
+  }
+
 let currentlyVisible;
 let buttontext = null;
 
 if (auth.currentUser === null) {
-    signInOutLink = <Nav.Link href = '/sign-in'><h2>Sign In</h2></Nav.Link> 
     currentlyVisible = <h2 className="mt-3">Please sign in to view your memos🖤</h2>
     buttontext = "+ Add";
-
 }
-else if (auth.currentUser !== null) {
-    signInOutLink = <Nav.Link href = '/sign-out'><h2>Sign Out</h2></Nav.Link> 
 
-    if(error) {
+if (signInVisible) {
+    currentlyVisible = <SignIn signInDone={handleSignIn}/>;
+}
+
+else if (auth.currentUser !== null) {
+
+    if (signOutVisible) {
+     currentlyVisible = <SignOut onSignOut={handleSignOut}/>
+     buttontext = "+ Add";
+    }
+
+    else if(error) {
         currentlyVisible =  <p>There was an error: {error}</p>
     }
 
@@ -154,11 +187,16 @@ else if (auth.currentUser !== null) {
             <Nav>
     <Navbar.Brand><img src={moonImg} alt='moon'/></Navbar.Brand>
      <Nav.Link href="/"><h2>Memory Lane</h2></Nav.Link>           
-   {signInOutLink}
+ {auth.currentUser === null ? <Button onClick={handleSignInClick}>Sign In</Button> : <Button onClick={handleSignOutClick}>Sign Out</Button> }
    </Nav>
-   <Nav className="justify-content-end">
-   {error ? null : <Button variant="outline-secondary" size="sm"  onClick={handleClick}><h4><strong>{buttontext}</strong></h4></Button> }
+   
+
+   
+   <Nav>
+   <Stack direction="horizontal" gap={3}>
    <Navbar.Text><h4><em>  ...Follow your dreams!</em></h4></Navbar.Text>
+   {error ? null : <Button variant="outline-secondary" size="sm"  onClick={handleClick} style={buttonStyles}><h4><strong>{buttontext}</strong></h4></Button>}
+    </Stack>
    </Nav>
    </Container>
    </Navbar>
@@ -166,5 +204,6 @@ else if (auth.currentUser !== null) {
     </React.Fragment>
  );
 }
+
 
 export default MemoControl;

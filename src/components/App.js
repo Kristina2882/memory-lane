@@ -1,23 +1,34 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import MemoControl from './MemoControl';
-import SignIn from './SignIn';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignOut from './SingOut';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
+import { ThemeContext, themes } from '../context/theme-context';
+import ToggleTheme from './ToggleTheme';
 
 function App() {
+
+  const [theme, setTheme] = useState(themes.dark);
+
+  document.body.style.backgroundColor = theme.backgroundColor;
+  document.body.style.color = theme.textColor;
+
+  function toggleTheme() {
+    setTheme(theme => 
+      theme.textColor === "AntiqueWhite" ? themes.light : themes.dark );
+  }
+
   return (
-  <Router>
+   <ThemeContext.Provider value={theme}>
     <Container>
-     <Routes>
-      <Route path='/sign-in' element={<SignIn/>}/>
-      <Route path='/' element={<MemoControl/>}/>
-      <Route path='/sign-out' element={<SignOut />} />
-     </Routes>
+    <ThemeContext.Consumer>
+        {contextTheme =>  <ToggleTheme toggleTheme={toggleTheme} theme={contextTheme}/>}
+    </ThemeContext.Consumer>
+    <MemoControl/>
+
      </Container>
-  </Router>
+  </ThemeContext.Provider>
+
   );
 }
 
