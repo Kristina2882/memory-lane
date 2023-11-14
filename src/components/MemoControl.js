@@ -120,7 +120,6 @@ const handleSignInClick = () => {
     }
 const handleSignIn = () => {
     setSignInVisible(false);
-    setListVisible(false);
 }
 
 const handleSignOutClick = () => {
@@ -136,6 +135,7 @@ const buttonStyles = {
     backgroundColor: theme.buttonBackground, 
     color: theme.textColor, 
   }
+
 
 let currentlyVisible;
 let buttontext = null;
@@ -183,21 +183,22 @@ else if (auth.currentUser !== null) {
  return (
     <React.Fragment>
      <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-            <Nav>
-    <Navbar.Brand><img src={moonImg} alt='moon'/></Navbar.Brand>
-     <Nav.Link href="/"><h2>Memory Lane</h2></Nav.Link>           
- {auth.currentUser === null ? <Button onClick={handleSignInClick}>Sign In</Button> : <Button onClick={handleSignOutClick}>Sign Out</Button> }
-   </Nav>
-   
-
-   
+     <Container>
+    <Navbar.Brand  className="d-inline align-top"><img src={moonImg}
+                        alt='moon'
+                       />{' '}
+                        <strong>Memory Lane</strong>  
+                          </Navbar.Brand>       
+   <Stack direction="horizontal" gap={2}>
    <Nav>
-   <Stack direction="horizontal" gap={3}>
    <Navbar.Text><h4><em>  ...Follow your dreams!</em></h4></Navbar.Text>
-   {error ? null : <Button variant="outline-secondary" size="sm"  onClick={handleClick} style={buttonStyles}><h4><strong>{buttontext}</strong></h4></Button>}
-    </Stack>
+   {error ? null : <Button variant="buttonStyles"  size="sm"  onClick={handleClick}><h4><strong>{buttontext}</strong></h4></Button>}
    </Nav>
+   <Nav>    
+     {auth.currentUser === null ? <Button variant="buttonStyles" size="sm" onClick={handleSignInClick}><h4><strong>Sign In</strong></h4></Button> : 
+                              <Button variant="buttonStyles" size= "sm" onClick={handleSignOutClick}><h4><strong>Sign Out</strong></h4></Button> }
+   </Nav>
+   </Stack>
    </Container>
    </Navbar>
     {currentlyVisible}

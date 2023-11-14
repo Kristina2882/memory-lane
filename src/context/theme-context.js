@@ -8,9 +8,9 @@ export const themes= {
       inputBackground: "Gainsboro"
     },
     dark: {
-      backgroundColor: "DarkSlateGrey",
-      textColor: "AntiqueWhite",
-      buttonBackground: "#232b3c",
+      backgroundColor: "#494E6B",
+      textColor: "#98878F",
+      buttonBackground: "#192231",
       inputBackground: "#45516d"
     }
   };
