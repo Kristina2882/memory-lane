@@ -1,7 +1,7 @@
 import React, {useState, useContext} from "react";
 import { auth } from "./../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import { Form, Row, Col, Button, Stack } from "react-bootstrap";
+import { Form, Row, Col, Button} from "react-bootstrap";
 import PropTypes from 'prop-types';
 import { ThemeContext } from "../context/theme-context";
 
