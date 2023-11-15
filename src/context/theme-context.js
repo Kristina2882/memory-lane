@@ -3,15 +3,15 @@ import React from "react";
 export const themes= {
     light: {
       backgroundColor: "AntiqueWhite",
-      textColor: "DarkSlateGrey",
-      buttonBackground: "Lavender", 
-      inputBackground: "Gainsboro"
+      textColor: "#192231",
+      buttonBackground: "#98878F", 
+      inputBackground: "#ded1c1"
     },
     dark: {
       backgroundColor: "#494E6B",
-      textColor: "#98878F",
+      textColor: "AntiqueWhite", 
       buttonBackground: "#192231",
-      inputBackground: "#45516d"
+      inputBackground: "#98878F"
     }
   };
 

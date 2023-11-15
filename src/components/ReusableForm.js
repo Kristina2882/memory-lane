@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import PropTypes from 'prop-types';
 import {auth} from './../firebase';
 import { Form, Button, Row, Col } from "react-bootstrap";
+import { ThemeContext } from "../context/theme-context";
 
 function ReusableForm(props) {
+
+const theme = useContext(ThemeContext);
+const inputStyles = {
+    backgroundColor: theme.inputBackground
+}
+
     return (
 <React.Fragment>
 <Form onSubmit={props.handleFormSubmission} className="mt-3" >
@@ -11,6 +18,7 @@ function ReusableForm(props) {
     <Col>
         <Form.Group className="mb-3">
         <Form.Control 
+         style={inputStyles}
         type="text"
         name="name"
         value={auth.currentUser.email} readOnly
@@ -20,6 +28,7 @@ function ReusableForm(props) {
         <Col>
         <Form.Group className="mb-3">
         <Form.Control 
+         style={inputStyles}
         type="text"
         name="title"
         placeholder="What was it?"
@@ -29,6 +38,7 @@ function ReusableForm(props) {
         </Row>
         <Form.Group className="mb-3">
         <Form.Control 
+         style={inputStyles}
         type="text"
         name="memoText"
         placeholder="Your dream"
@@ -38,6 +48,7 @@ function ReusableForm(props) {
          <Col>
         <Form.Group className="mb-3">
         <Form.Control 
+         style={inputStyles}
         type="date"
         name="date"
         placeholder="Date"
@@ -45,7 +56,7 @@ function ReusableForm(props) {
         </Form.Group>
         </Col>
         <Col>
-        <Form.Select size="lg" className="mb-3" name="rate">   
+        <Form.Select size="lg" className="mb-3" name="rate"  style={inputStyles}>   
             <option selected value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
             <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
             <option value="⭐⭐⭐">⭐⭐⭐</option>
@@ -54,7 +65,7 @@ function ReusableForm(props) {
           </Form.Select>
           </Col>
           <Col>
-          <Form.Select size="lg" className="mb-3" name="emotion">
+          <Form.Select size="lg" className="mb-3" name="emotion"  style={inputStyles}>
             <option selected value="😍">😍</option>
             <option value="🤣">🤣</option>
             <option value="😱">😱</option>
@@ -63,7 +74,7 @@ function ReusableForm(props) {
             </Form.Select>
             </Col>
        <Form.Group className="mb-3">
-        <Button type="submit" variant="outline-dark"  size="lg">{props.btnText}</Button>
+        <Button type="submit" variant="outline-dark"  size="lg"><strong>{props.btnText}</strong></Button>
         </Form.Group>
         </Row>
     </Form>

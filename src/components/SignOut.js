@@ -23,7 +23,7 @@ return (
 <React.Fragment>
    <h2 className="mt-3">Sign Out</h2>
   <h5 className="mb-3"><em>{signOutSuccess}</em></h5> 
-<Button onClick={doSignOut} variant="outline-dark">Sign Out!</Button>
+<Button onClick={doSignOut} variant="outline-dark"><strong>Sign Out!</strong></Button>
 </React.Fragment>);
 }
 

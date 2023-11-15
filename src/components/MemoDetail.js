@@ -13,7 +13,7 @@ function MemoDetail(props) {
         <h5><em>Seen on: {memo.date.toString()}</em></h5>
         <h2>{memo.rate}</h2>
         <h1>{memo.emotion}</h1>
-        <Button onClick={props.onEditClick}  variant="outline-dark"className='mt-3' >Edit</Button>  <Button onClick={() => props.onDeleteClick(memo.id)} variant="outline-danger" className='mt-3'>Delete</Button>
+        <Button onClick={props.onEditClick}  variant="outline-dark"className='mt-3' ><strong>Edit</strong></Button>  <Button onClick={() => props.onDeleteClick(memo.id)} variant="outline-dark" className='mt-3'><strong>Delete</strong></Button>
         </React.Fragment>
     )
 }

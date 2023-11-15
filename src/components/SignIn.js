@@ -1,11 +1,18 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { auth } from "./../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 import { Form, Row, Col, Button, Stack } from "react-bootstrap";
 import PropTypes from 'prop-types';
+import { ThemeContext } from "../context/theme-context";
 
 
 function SignIn(props) {
+
+    const theme = useContext(ThemeContext);
+
+    const inputStyles = {
+        backgroundColor: theme.inputBackground
+    }
 
     const [signUpSuccess, setSignUpSuccess] = useState(null);
     const [signInSuccess, setSignInSuccess] = useState(null);
@@ -55,7 +62,8 @@ function SignIn(props) {
                 <Row>
                     <Col>
                     <Form.Group className="mb-3">
-                <Form.Control 
+                <Form.Control
+                style={inputStyles}
                 name="email"
                 type="text"
                 placeholder="Your email"/>
@@ -64,6 +72,7 @@ function SignIn(props) {
                 <Col>
                 <Form.Group className="mb-3">
                 <Form.Control 
+                 style={inputStyles}
                 name="password"
                 type="password"
                 placeholder="Your password"/>
@@ -72,13 +81,14 @@ function SignIn(props) {
                 <Col>
                 <Form.Group className="mb-3">
                 <Form.Control 
+                 style={inputStyles}
                 name="confirmPassword"
                 type="password"
                 placeholder="Confirm your password"/>
                 </Form.Group>
                 </Col>
                 </Row>
-                <Button type="submit" variant="outline-dark">Sign Up!</Button>
+                <Button type="submit" variant="outline-dark"><strong>Sign Up!</strong></Button>
             </Form>
 
             <h2 className="mt-3">Sign In</h2>
@@ -88,6 +98,7 @@ function SignIn(props) {
                     <Col sm={4}>
                     <Form.Group className="mb-3">
                  <Form.Control 
+                  style={inputStyles}
                 name="signInEmail"
                 type="text"
                 placeholder="Your email"/>
@@ -96,13 +107,14 @@ function SignIn(props) {
                 <Col sm={4}>
                 <Form.Group className="mb-3">
                 <Form.Control 
+                 style={inputStyles}
                 name="signInPassword"
                 type="password"
                 placeholder="Your password"/>
                 </Form.Group>
                 </Col>
                 </Row>
-                <Button type="submit" variant="outline-dark">Sign In!</Button>
+                <Button type="submit" variant="outline-dark"><strong>Sign In!</strong></Button>
             </Form>
 
         </React.Fragment>

@@ -15,7 +15,7 @@ function App() {
 
   function toggleTheme() {
     setTheme(theme => 
-      theme.textColor === "#98878F" ? themes.light : themes.dark );
+      theme.textColor === "AntiqueWhite" ? themes.light : themes.dark );
   }
 
   return (
